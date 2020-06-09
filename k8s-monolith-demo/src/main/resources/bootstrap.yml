@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: @project.name@
+  cloud:
+    kubernetes:
+      config:
+        name: monolith-demo-config
+logging:
+  level:
+    ROOT: info
+    com.fuck: debug

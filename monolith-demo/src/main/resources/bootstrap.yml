@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: @project.name@
+  cloud:
+    kubernetes:
+logging:
+  level:
+    ROOT: info
+    com.fuck: debug

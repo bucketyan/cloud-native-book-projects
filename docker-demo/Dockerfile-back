@@ -1,0 +1,16 @@
+# FROM 指定基础镜像
+FROM openjdk:8-jre-alpine
+# 为镜像设置元数据，例如镜像创建者或者镜像说明
+#LABEL maintainer="fuck@mail.com"
+# 设置环境变量
+ENV SPRING_OUTPUT_ANSI_ENABLED=ALWAYS \
+JAVA_OPTS=""
+# 指定工作目录
+WORKDIR /app
+# 复制文件
+ADD target/*.jar app.jar
+#ADD *.jar app.jar
+# 声明端口
+EXPOSE 8080
+# 为启动的容器指定默认要运行的程序
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/app.jar"]

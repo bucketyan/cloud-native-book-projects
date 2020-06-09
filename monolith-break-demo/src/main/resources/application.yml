@@ -1,0 +1,47 @@
+spring:
+  jpa:
+    #启用SQL语句的日志记录
+    show-sql: true
+  datasource:
+    #数据库连接设置
+    url: jdbc:h2:mem:dbtest;database_to_upper=false
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
+    #表明使用的数据库平台是h2
+    platform: h2
+    #进行该配置后，每次启动程序，程序都会运行resources/db/schema.sql文件，对数据库的结构进行操作
+    #schema: classpath:db/schema.sql
+    #进行该配置后，每次启动程序，程序都会运行resources/db/data.sql文件，对数据库的数据操作
+    #data: classpath:db/data.sql
+  h2:
+    console:
+      enabled: true
+      #进行该配置，你就可以通过URL/h2访问h2 web consloe
+      path: /h2
+      #配置为true，h2 web consloe就可以在远程访问了，否则只能在本机访问
+      settings:
+        web-allow-others: false
+
+server:
+  port: 8087
+
+management:
+  server:
+    address: 127.0.0.1
+    #actuator暴露接口使用的端口，为了和api接口使用的端口进行分离
+    port: 9087
+    servlet:
+      #actuator暴露接口的前缀
+      context-path: /manage
+  endpoint:
+    shutdown:
+      #actuator的shutdown接口开启
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        #默认只公开了/health和/info端点，要想暴露所有端点只需设置成星号即可
+        include: "*"
+      #默认值为：/actuator  若不配置则变为/manage/actuator/shutdown 配置/ 维持原有/manage/shutdown
+      base-path: /

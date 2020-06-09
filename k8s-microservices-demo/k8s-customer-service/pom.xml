@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>microservices-demo</artifactId>
+        <groupId>com.fuck.cloudnative.microservices.example</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>k8s-customer-service</artifactId>
+    <name>k8s-customer-service</name>
+    <description>Demo project for Spring Boot</description>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>-->
+        <!--<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>-->
+
+        <!--<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-kubernetes</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-kubernetes-config</artifactId>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-kubernetes-all</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!--<dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox-swagger-ui.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash-logback-encoder.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fuck.cloudnative.microservices.example</groupId>
+            <artifactId>demo-commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--<configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>-->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>2.1.0</version>
+                <configuration>
+                    <from>
+                        <image>openjdk:8-jre-alpine</image>
+                    </from>
+                    <to>
+                        <image>docker.io/testtdockertest/${project.artifactId}:${project.version}</image>
+                        <auth>
+                            <username>xxx</username>
+                            <password>xxx</password>
+                        </auth>
+                    </to>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>fabric8-maven-plugin</artifactId>
+                <version>4.4.1</version>
+                <configuration>
+                    <access>
+                        <masterUrl>https://127.0.0.1:6443</masterUrl>
+                        <caCertData>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY2
+                            01bGRHVnpNQjRYRFRFNU1EZ3hPVEE0TURreU5sb1hEVEk1TURneE5qQTRNRGt5Tmxvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFv
+                            Q2dnRUJBTUZ0CnJOaDZQTGpIL3BsWUorc3UrMGQyVTQ0eGJTbUd1a1FqTVo2ditMOFdBVUpOSGZvSW1PNVNXN1UwZWdRVkZaZisKSm5tenlWejhFY3BFcE5ZVjJvNEsxeHpjT3hiNVdFcVB4dHFhMmtYVWFuL2
+                            JtcC90ZWg2STFCQmlac3V5ZUVDcApnbWQ4dUsrc0dJNWJJMDVqam5KbVVtekxrY1JpUXBMWER0Y044cUIyZEdWbmQ3Yi8zMndSd0Erb3UwZWNpRlJQCjlNTmFYb3pUMkdBZVBBaFA0NHdMendIeWk1Z09XcDJX
+                            OWxYdmdQZjZHa0VlbEF0MTZZRENLb0Z2aHR2YkVQREgKU01uM0gxc0ZwZHlzcVJuSGVXUGhVYTh6d0d4TzJoSWNiMXRlVmU5cm96Yjc5SERBTFVjZWdiYmhKbGVBek9vRApZMlkxWnRWdVhzS2tUQldyZm5zQ0
+                            F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFLV05NVWM1cXQ2S1hQZHN1V2phODVDRWkrelEKUWpra0U2VVQ3
+                            cHNFdGI0WDVGMHpURUkrL0VYdFhuZUlJU2tSN0R5c1BEd2J5RHFXZlI1UnRDNExKbW1jOVQyVwpzL0dFMmFTaExLSkI4Y0R6Uy8yZHcwVnF4VjRNb0l3eUdrUXFIQXhzK3M3SkQwUVltVlJyeEVDSDQrWFc2Wm
+                            5XClVLc1VJaGRxdEtsblJqTEZzWlQzYlNVSTVlTWFna1hVWU03cVdOVitwdithaVVzdzRCVDY0Skx1T0NUemVNekYKcDZxZkk0Nmo5SDFXMlRQUXh5dGkwY3VsclBWVU5oN3JmYllsazAvTHJtUnNUMXF6bmNX
+                            VXVocE5DVnFFT21HOQpnbVlwblVKMVRwOGVpMTc4L3NYVXBqZ2p4L09rK09pN1hHcERUU2U5eEROUEZPN2F6ZTlzNUlqbTc3UT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=</caCertData>
+                        <token>eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLTJoOXZ4Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJkMTUwNjY2Yy1mYzYwLTQ5ZDYtYmJiMy04NDY1NmU0NDk3ZTciLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06YWRtaW4tdXNlciJ9.Fu48G_yjCq0RBWHI8RrRCYGHSKeHfm5KG4N6V7F_S5BCHC87_zEkJtltxHZ5vUyxu886XlrJ_irk9dWVz2rhYCpyI9EdjU2bupe5XTJlAWt4cD3SoFzIXuVX5GcGMN4oNCP-toXQBohSe_boD6ooZ-a7zEQz6hgzv_40heXQB9EhQBKzR2uGGons8ReF011C4GXfD2zNarjHxRWGw27NDTyKs7W-VDWeXgqikQKnUmysxy4jnvB7yV2nj-8h5JVVonelm-Mxpj7DtzHGLuzCU9qwYS0y7LznlvXqVW5BVRb4GnYyGtJaBbqR9yhkLAZSFwCtPQ4l5Qm-99BhUGJjaQ</token>
+                    </access>
+                    <enricher>
+                        <config>
+                            <fmp-service>
+                                <name>${project.name}</name>
+                                <type>LoadBalancer</type>
+                                <!--<type>NodePort</type>-->
+                            </fmp-service>
+                        </config>
+                    </enricher>
+                </configuration>
+                <!-- This block will connect fabric8:resource and fabric8:build to lifecycle phases -->
+                <executions>
+                    <execution>
+                        <id>fmp</id>
+                        <goals>
+                            <goal>resource</goal>
+                            <goal>build</goal>
+                            <goal>helm</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <!--<includes>
+                    <include>application.yml</include>
+                </includes>-->
+            </resource>
+        </resources>
+    </build>
+
+</project>

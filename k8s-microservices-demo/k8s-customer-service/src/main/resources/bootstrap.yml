@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: @project.name@
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
+      reload:
+        enabled: true
+management:
+
+  endpoint:
+    restart:
+      enabled:
+

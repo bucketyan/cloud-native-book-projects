@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${project.artifactId}
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+        - name: ${project.artifactId}
+          image: xxx/${project.artifactId}:${project.version}
+          #image: 127.0.0.1:5000/${project.artifactId}:${project.version}
+          volumeMounts:
+            - mountPath: /logs
+              name: test-volume
+      volumes:
+      - name: test-volume
+        hostPath:
+          # directory location on host
+          path: /opt/test-data/${project.artifactId}
+          # this field is optional
+          type: DirectoryOrCreate

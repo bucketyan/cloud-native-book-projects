@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.0.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.fuck.cloudnative</groupId>
+    <artifactId>docker-demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>docker-demo</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.0.RELEASE</version>
+                <configuration>
+                    <image>
+                        <!--<env>
+                            <BP_JVM_VERSION>13.0.1</BP_JVM_VERSION>
+                        </env>-->
+                        <name>docker.io/testtdockertest/${project.artifactId}:${project.version}</name>
+                    </image>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.3</version>
+                <configuration>
+                    <username>xxx</username>
+                    <password>xxx</password>
+                    <repository>testtdockertest/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                </configuration>
+                <!--在构建生命周期中执行一组目标的配置。每个目标可能有不同的配置。-->
+                <executions>
+                    <!--execution元素包含了插件执行需要的信息-->
+                    <execution>
+                        <!--执行目标的标识符，用于标识构建过程中的目标，或者匹配继承过程中需要合并的执行目标-->
+                        <id>default</id>
+                        <!--绑定了目标的构建生命周期阶段，如果省略，目标会被绑定到源数据里配置的默认阶段-->
+                        <phase>install</phase>
+                        <!--配置的执行目标-->
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>2.1.0</version>
+                <configuration>
+                    <from>
+                        <image>openjdk:8-jre-alpine</image>
+                        <!--
+                        <image>192.168.121.131:5000/openjdk:8-jdk-stretch</image>
+                        <auth>
+                            <username>my_username</username>
+                            <password>my_password</password>
+                        </auth>
+                        -->
+                    </from>
+                    <to>
+                        <image>docker.io/testtdockertest/${project.artifactId}:${project.version}</image>
+                        <auth>
+                            <username>xxx</username>
+                            <password>xxx</password>
+                        </auth>
+                    </to>
+                    <!--允许非https-->
+                    <!--<allowInsecureRegistries>true</allowInsecureRegistries>-->
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
